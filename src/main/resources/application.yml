@@ -1,0 +1,17 @@
+server:
+  port: 1530
+  
+service:
+  configuration:
+    http:
+      http-request-timeout: 30000
+      socket-timeout: 30000
+      conn-request-timeout: 30000
+      max-threads: 400
+      max-threads-per-route: 200 
+
+hikari:
+  idle-timeout: 600000
+  max-lifetime: 14400000  
+  connection-timeout: 900000
+    
