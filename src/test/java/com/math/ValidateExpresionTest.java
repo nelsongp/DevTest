@@ -6,7 +6,7 @@ import org.junit.Test;
 import com.math.data.validate.ValidateData;
 
 
-public class ValidateExpresion {
+public class ValidateExpresionTest {
 	ValidateData validar = new ValidateData();
 	
 	@Test
