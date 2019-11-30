@@ -1,5 +1,6 @@
 package com.math.process;
 
+import org.apache.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.math.data.evaluate.IOrderData;
@@ -22,7 +23,7 @@ public class OrderProcess implements IOrderProcess{
 	}
 
 	@Override
-	public ResponsePojo getResult(String infix) {
+	public ResponsePojo getResult(String infix) throws Exception{
 		ResponsePojo response = new ResponsePojo();
 		try {
 			//Validamos si el valor introducido es valido
@@ -31,15 +32,13 @@ public class OrderProcess implements IOrderProcess{
 				response.setPostfix(dataOrder.evaluarExpresion(infix));
 				response.setResult(0);
 			} else {
-				System.out.println("Error");
+				throw new Exception();
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		
+			response = new ResponsePojo();
+		}			
 			
-		return null;
+		return response;
 	}
 	
 }

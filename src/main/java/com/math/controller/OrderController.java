@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.math.data.evaluate.OrderData;
 import com.math.data.validate.ValidateData;
+import com.math.pojo.EntryPojo;
 import com.math.pojo.ResponsePojo;
 import com.math.process.IOrderProcess;
 import com.math.process.OrderProcess;
@@ -19,8 +20,8 @@ public class OrderController {
 		this.process = new OrderProcess(new ValidateData(), new OrderData());
 	}
 	
-	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-	public ResponsePojo orderValues(@RequestBody String exp) {		
-		return process.getResult(exp);
+	@RequestMapping(value = "/evaluate", method = RequestMethod.POST)
+	public ResponsePojo orderValues(@RequestBody EntryPojo entry) throws Exception {		
+		return process.getResult(entry.getExp());
 	}
 }
