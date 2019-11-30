@@ -12,5 +12,5 @@ import lombok.Setter;
 public class ResponsePojo {
 	private String infix;
 	private String postfix;
-	private String result;
+	private Integer result;
 }

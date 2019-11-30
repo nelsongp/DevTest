@@ -1,15 +1,20 @@
 package com.math.data.evaluate;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Collections;
 import java.util.List;
-import java.util.Stack;
 import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
 
 import com.math.utils.PriorityOperator;
 import com.math.utils.ValidateNumber;
-import com.math.utils.Validations;
 
+/**
+ * Funcion que ordena los elementos intfix para convertirlo a postfix
+ * @param intfix String enviado por el usuario para ser convertido
+ */
+@Service
 public class OrderData implements IOrderData{
 
 	@Override
@@ -24,26 +29,38 @@ public class OrderData implements IOrderData{
 			if(validateNumber.validateNumber(x))
 				outputStack.add(x);
 			else {
-				if(!opStack.isEmpty()) {
-					int listVales = opStack.size();					
+				//validamos si el array no esta vacio
+				if(!opStack.isEmpty()) {			
+					//calculamos los elementos actuales del array
+					int listVales = opStack.size();
+					//recorremos cada elemento del array
 					for (int i = 0; i < listVales; i++) {
-						if(priorityOperator.operatorOrder(x, opStack.get(listVales - 1))) {
+						int listValesAct = opStack.size();
+						//evaluamos la cantidad actual de elementos del array
+						int b = listValesAct == 0 ? 0 : listValesAct - 1;
+						//si el operador es menor o igual al operador dentro del array lo ingresamos al array de opstack
+						if(priorityOperator.operatorOrder(x, opStack.get(b))) {
 							opStack.add(x);							
 						} else {
-							outputStack.add(opStack.remove(i));
+							//si se cumple la condicion de un operador con mas prioridad lo sacamos del array op y lo
+							//ingresamos al array de salida.
+							outputStack.add(opStack.get(b));
+							opStack.remove(b);	
+							//si es el ultimo elemento lo ingresamo al opstack
+							if(b==0)
+								opStack.add(x);
 						}
-					}
-					/*while(itr.hasNext()) {
-						if(priorityOperator.operatorOrder(x, itr.next())) {
-							opStack.push(x);							
-						} else outputStack.push(opStack.pop());													
-					}	*/				
+					}			
 				} else opStack.add(x);
 			}
 		});		
-		System.out.println(outputStack.toString());
-		System.out.println(opStack.toString());
-		return null;
+		StringBuilder str = new StringBuilder();
+		//devolvemos el array de operadores restantes en reversa por orden de prioridad
+		Collections.reverse(opStack);				
+		outputStack.forEach(x -> str.append(x));
+		opStack.forEach(x -> str.append(x));		
+		System.out.println(str);
+		return str.toString();
 	}
 	
 }

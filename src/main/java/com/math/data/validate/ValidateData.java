@@ -1,7 +1,15 @@
 package com.math.data.validate;
 
+import org.springframework.stereotype.Service;
+
 import com.math.utils.Validations;
 
+
+/**
+ * Funcion para validar si el string enviado es valido
+ * @param infix cadena de caracteres digitada por el usuario para ser evaluada
+ */
+@Service
 public class ValidateData implements IValidateData{
 
 	@Override
